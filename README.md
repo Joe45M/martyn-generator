@@ -25,3 +25,23 @@ This repository contains the application which is responsible for:
 
 ### Development
 The application uses larastan for static analysis, and Pest for testing. Upon deployment, the application will run the following commands:
+
+
+#### Larastan & static analysis
+We use Larastan to provide static analysis for our codebase. To run Larastan, you can use the following command:
+
+```bash
+./vendor/bin/phpstan analyse -l 6 app
+```
+
+#### Pest & testing
+We use Pest for testing our codebase. To run Pest, you can use the following command:
+```bash
+./vendor/bin/pest
+```
+
+This codebase is test-first. No feature will be released without test coverage. You can ensure component test coverage by running the following command:
+
+```bash
+./vendor/bin/pest --coverage
+```
