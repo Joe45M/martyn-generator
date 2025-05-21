@@ -14,6 +14,12 @@ return [
     |
     */
 
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => 'http://martyn-generator.test/socialite/callback/github',
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
