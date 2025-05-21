@@ -2,26 +2,27 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class AssignRepo extends Component
 {
 
-    public $repositories;
-    public $results;
+    public Collection $results;
 
-    public $query;
-    public $searchResults;
+    public string $query;
+    public Collection $searchResults;
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.assign-repo', [
             'hasToken' => auth()->user()->github_token ? true : false,
         ]);
     }
 
-    public function init()
+    public function init(): void
     {
         $result = Http::withHeaders([
             'Authorization' => 'Bearer ' . auth()->user()->github_token,
@@ -37,7 +38,7 @@ class AssignRepo extends Component
         });
     }
 
-    public function search()
+    public function search(): void
     {
         $results = $this->results->filter(function ($repo) {
             return str_contains($repo['name'], $this->query);
@@ -48,7 +49,7 @@ class AssignRepo extends Component
         $this->render();
     }
 
-    public function setRepo(string $repo)
+    public function setRepo(string $repo): void
     {
         $this->query = $repo;
 
