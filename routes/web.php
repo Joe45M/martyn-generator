@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
+use App\Livewire\Admin\AdminDashboard;
 use App\Livewire\Dashboard;
 use http\Env\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +17,8 @@ Route::get('dashboard', Dashboard::class)
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
+
+Route::get('/admin', AdminDashboard::class)->middleware(AdminMiddleware::class);
 
 Route::get('/github', function () {
     return Socialite::driver('github')->redirect();
