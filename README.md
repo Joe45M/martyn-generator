@@ -9,7 +9,7 @@ This repository contains the application which is responsible for:
 
 ## Environment setup
 
-> [!ENVIRONMENT]
+> [!TIP]
 > For NIX based systems, it is recommended to use Laravel Valet for local development. On a Windows system, you can use the built-in `php artisan serve` command to run the application locally.
 
 1. Clone the repository into your parked Valet directory, or into a directory of your choice if you're using windows. 
@@ -33,6 +33,17 @@ We use Larastan to provide static analysis for our codebase. To run Larastan, yo
 ```bash
 ./vendor/bin/phpstan analyse -l 6 app
 ```
+
+Stan will alert you to dynamic properties from models. We use `barryvdh/laravel-ide-helper` to generate type docs for models, as well as ide helper files:
+
+```php
+php artisan ide-helper:generate
+```
+
+```php
+php artisan ide-helper:models -RW
+```
+
 
 #### Pest & testing
 We use Pest for testing our codebase. To run Pest, you can use the following command:
