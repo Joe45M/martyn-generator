@@ -31,10 +31,15 @@ class AssignRepo extends Component
             ->json();
 
         $this->results = collect($result)->map(function ($repo) {
-            return [
-                'name' => $repo['name'],
-                'url' => $repo['html_url'],
-            ];
+
+            if (isset($repo['name'])) {
+
+                return [
+                    'name' => $repo['name'],
+                    'url' => $repo['html_url'],
+                ];
+
+            }
         });
     }
 
