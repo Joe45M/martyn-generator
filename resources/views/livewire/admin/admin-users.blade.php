@@ -1,6 +1,7 @@
 <x-card title="All registered users">
 
-    <div class="flex gap-3">
+    <div class="flex flex-wrap gap-3">
+        <div class="self-center text-gray-500">Filter:</div>
         <div>
             <x-text-input wire:keyup="search" wire:model="name" placeholder="Name"></x-text-input>
         </div>
@@ -8,6 +9,8 @@
             <x-text-input wire:keyup="search" wire:model="email" placeholder="Email"></x-text-input>
         </div>
     </div>
+
+    <hr class="-mx-3 mt-3">
 
     @foreach($users as $user)
         <div class="flex justify-between items-center p-3 {{ $loop->last ?? 'border-b border-b-gray-300' }}">
