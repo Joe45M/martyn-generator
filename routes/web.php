@@ -19,13 +19,14 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::get('/admin', AdminDashboard::class)->middleware(AdminMiddleware::class);
-
 Route::get('/github', [GithubAuthenticationController::class, 'authenticate'])->name('socialite.github')
 ->middleware('auth');
 
 Route::get('/socialite/callback/github', [GithubAuthenticationController::class, 'verifyAuthentication'])
     ->middleware('auth');
-;
+
+
+
 
 require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';
