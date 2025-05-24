@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GithubAuthenticationController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Livewire\Admin\AdminDashboard;
 use App\Livewire\Dashboard;
@@ -20,20 +21,11 @@ Route::view('profile', 'profile')
 
 Route::get('/admin', AdminDashboard::class)->middleware(AdminMiddleware::class);
 
-Route::get('/github', function () {
-    return Socialite::driver('github')->redirect();
-})->name('socialite.github');
+Route::get('/github', [GithubAuthenticationController::class, 'authenticate'])->name('socialite.github')
+->middleware('auth');
 
-Route::get('/socialite/callback/github', function (\Illuminate\Http\Request $request) {
-    try {
-        $token = Socialite::driver('github')->user()->token;
-        $user = Auth::user();
-        $user->github_token = $token;
-        $user->save();
-        return redirect()->route('dashboard')->with('success', 'GitHub token saved successfully.');
-    } catch (Exception $e) {
-        return redirect()->route('dashboard')->with('error', 'Failed to save GitHub token. Please try again later.');
-    }
-});
+Route::get('/socialite/callback/github', [GithubAuthenticationController::class, 'verifyAuthentication'])
+    ->middleware('auth');
+;
 
 require __DIR__.'/auth.php';
